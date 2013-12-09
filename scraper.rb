@@ -10,7 +10,7 @@ posts = {}
 
 def get_items(query)
   url = 'http://api.thriftdb.com/api.hnsearch.com/items/_search'
-  response = JSON.parse(RestClient.get(url, {:params => {:q => query}}))
+  response = JSON.parse(RestClient.get(url, {:params => {q: query, limit: 50 }}))
   items = []
   response['results'].each { |i| items.push(i['item']['id']) }
   return items
@@ -24,12 +24,16 @@ while start <= finish
     "Ask HN: Who Is Hiring? (#{start.strftime("%B %Y")} Edition)"
   ]
 
+  all_items = {}
   queries.each do |q|
     items = get_items(q)
-    items.each { |i| posts[i] = nil }
+    items.each { |i| all_items[i] = nil }
   end
+  posts[start.strftime("%B %Y")] = all_items
 
   start = start >> 1
 end
 
-p posts
+posts.each do |p|
+  # get all comments for each post
+end
