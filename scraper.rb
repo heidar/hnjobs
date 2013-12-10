@@ -2,11 +2,9 @@
 
 require 'date'
 require 'json'
+require 'mechanize'
 require 'rest_client'
 
-start = Date.parse('September 2010').to_datetime
-finish = Date.parse(Time.now.strftime('%B %Y')).to_datetime
-posts = {}
 
 def get_items(query)
   url = 'http://api.thriftdb.com/api.hnsearch.com/items/_search'
@@ -15,6 +13,10 @@ def get_items(query)
   response['results'].each { |i| items.push(i['item']['id']) }
   return items
 end
+
+start = Date.parse('September 2013').to_datetime
+finish = Date.parse(Time.now.strftime('%B %Y')).to_datetime
+posts = {}
 
 while start <= finish
   queries = [
@@ -25,15 +27,24 @@ while start <= finish
   ]
 
   all_items = {}
-  queries.each do |q|
-    items = get_items(q)
-    items.each { |i| all_items[i] = nil }
+  queries.each do |query|
+    items = get_items(query)
+    items.each { |item| all_items[item] = [] }
   end
   posts[start.strftime("%B %Y")] = all_items
 
   start = start >> 1
 end
 
-posts.each do |p|
-  # get all comments for each post
+agent = Mechanize.new
+url = 'https://news.ycombinator.com/item'
+
+posts.each do |month, items|
+  items.each do |item, comments|
+    page = agent.get("#{url}?id=#{item}")
+    page.parser.css('span.comment').each do |c|
+      posts[month][item].push(c.text.strip)
+    end
+  end
 end
+p posts
