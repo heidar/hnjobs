@@ -48,12 +48,13 @@ url = 'https://news.ycombinator.com/item'
 
 posts.each do |month, items|
   items.each do |item, comments|
-    sleep(3)
+    sleep(5)
     page = agent.get("#{url}?id=#{item}")
     while true
       page.parser.css('span.comment').each do |c|
         comments.push(c.text)
       end
+      sleep(5)
       has_more?(page.links) ? page.link_with(:text => 'More').click : break
     end
   end
