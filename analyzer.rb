@@ -26,6 +26,7 @@ languages = [
   'Objective-C',
   'Perl',
   'PHP',
+  'Prolog',
   'Python',
   'R',
   'Ruby',
