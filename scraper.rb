@@ -14,7 +14,14 @@ def get_items(query)
   return items
 end
 
-start = Date.parse('September 2013').to_datetime
+def has_more?(links)
+  links.each do |l|
+    return true if l.text == 'More' && !l.href['/x'].nil?
+  end
+  return false
+end
+
+start = Date.parse('December 2013').to_datetime # September 2010
 finish = Date.parse(Time.now.strftime('%B %Y')).to_datetime
 posts = {}
 
@@ -41,10 +48,15 @@ url = 'https://news.ycombinator.com/item'
 
 posts.each do |month, items|
   items.each do |item, comments|
+    sleep(3)
     page = agent.get("#{url}?id=#{item}")
-    page.parser.css('span.comment').each do |c|
-      posts[month][item].push(c.text.strip)
+    while true
+      page.parser.css('span.comment').each do |c|
+        comments.push(c.text)
+      end
+      has_more?(page.links) ? page.link_with(:text => 'More').click : break
     end
   end
 end
-p posts
+
+puts JSON.pretty_generate(posts)
