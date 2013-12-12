@@ -11,6 +11,8 @@ posts. Be careful though, HN might automatically block your IP if you do too
 many requests but the sleep function in the script should hopefully take care of
 that.
 
+The scraper will output JSON. If you wish to save it then pipe it to a file.
+
 ### Analyzer
 
 TODO
