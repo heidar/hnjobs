@@ -4,7 +4,7 @@
 
 Requires `mechanize` and `rest-client` gems.
 
-Tested with Ruby 2.0.0-p353
+Tested with Ruby 2.0.0-p353 on OS X and CentOS.
 
 ### Scraper
 
