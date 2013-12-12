@@ -1,5 +1,11 @@
 # Hacker News Comment Scraper
 
+### Dependencies
+
+Requires `mechanize` and `rest-client` gems.
+
+Tested with Ruby 2.0.0-p353
+
 ### Scraper
 
 This scraper uses the HN search API to search for posts according to the `queries`
