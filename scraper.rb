@@ -24,6 +24,7 @@ end
 start = Date.parse('September 2010').to_datetime # First post in September 2010
 finish = Date.parse(Time.now.strftime('%B %Y')).to_datetime
 posts = {}
+count = counter = 0
 
 while start <= finish
   queries = [
@@ -37,6 +38,7 @@ while start <= finish
   queries.each do |query|
     items = get_items(query)
     items.each { |item| all_items[item] = [] }
+    count = count + items.size
   end
   posts[start.strftime("%B %Y")] = all_items
 
@@ -48,13 +50,15 @@ url = 'https://news.ycombinator.com/item'
 
 posts.each do |month, items|
   items.each do |item, comments|
-    sleep(5)
+    sleep(60)
+    counter = counter + 1
+    puts "Fetching item #{counter}/#{count}..."
     page = agent.get("#{url}?id=#{item}")
     while true
       page.parser.css('span.comment').each do |c|
         comments.push(c.text)
       end
-      sleep(5)
+      sleep(60)
       has_more?(page.links) ? page = page.link_with(:text => 'More').click : break
     end
   end
