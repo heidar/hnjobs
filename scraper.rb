@@ -21,7 +21,7 @@ def has_more?(links)
   return false
 end
 
-start = Date.parse('December 2013').to_datetime # September 2010
+start = Date.parse('September 2010').to_datetime # First post in September 2010
 finish = Date.parse(Time.now.strftime('%B %Y')).to_datetime
 posts = {}
 
@@ -55,7 +55,7 @@ posts.each do |month, items|
         comments.push(c.text)
       end
       sleep(5)
-      has_more?(page.links) ? page.link_with(:text => 'More').click : break
+      has_more?(page.links) ? page = page.link_with(:text => 'More').click : break
     end
   end
 end
