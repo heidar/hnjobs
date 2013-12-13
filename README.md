@@ -1,4 +1,4 @@
-# Hacker News Comment Scraper
+# Hacker News Comment Scraper & Analyzer
 
 ## Dependencies
 
