@@ -12,7 +12,7 @@ def get_items(query)
   return items
 end
 
-start = Date.parse('August 2013').to_datetime # First post in September 2010
+start = Date.parse('July 2013').to_datetime # First post in September 2010
 finish = Date.parse(Time.now.strftime('%B %Y')).to_datetime
 posts = {}
 
