@@ -13,6 +13,7 @@ structure that can be passed into the scraper. Example output can be found in
 `posts.json`.
 
 The finder will output JSON. If you wish to save it then pipe it to a file.
+
 `./find.rb > posts.json`
 
 ### Scraper
