@@ -25,8 +25,14 @@ hopefully take care of that.
 
 The scraper will output JSON. If you wish to save it then pipe it to a file.
 
-`./scraper.rb posts.json > results.json`
+`./scraper.rb posts.json > comments.json`
 
 ### Analyzer
 
-TODO
+Run `analyzer.rb` with one argument which is `comments.json`. It will tokenize
+the comments into words and remove unwanted characters. Then it will do a count
+for each month for every word in the search array.
+
+The analyzer will output JSON. If you wish to save it then pipe it to a file.
+
+`./analyzer.rb comments.json > results.json`
