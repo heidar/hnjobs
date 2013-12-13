@@ -18,7 +18,6 @@ posts = JSON.parse(IO.read(ARGV[0]))
 posts.each do |month, items|
   items.each do |item, comments|
     sleep(60)
-    counter = counter + 1
     page = agent.get("#{url}?id=#{item}")
     while true
       page.parser.css('span.comment').each do |c|
