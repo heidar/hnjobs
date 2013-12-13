@@ -3,51 +3,53 @@
 require 'json'
 
 languages = [
-  'ActionScript',
-  'Assembly',
-  'BASIC',
-  'C',
-  'C++',
-  'C#',
-  'Clojure',
-  'COBOL',
-  'CoffeeScript',
-  'Dart',
-  'Erlang',
-  'Go',
-  'Haskell',
-  'Java',
-  'JavaScript',
-  'Lisp',
-  'Lua',
-  'Maple',
-  'MATLAB',
-  'Mathematica',
-  'Objective-C',
-  'Perl',
-  'PHP',
-  'Prolog',
-  'Python',
-  'R',
-  'Ruby',
-  'Rust',
-  'Scala',
-  'Scheme',
-  'Shell',
-  'Tcl',
-  'VBA',
-  'VBScript',
-  'Visual Basic'
+  'assembly',
+  'c',
+  'css',
+  'c++',
+  'c#',
+  'clojure',
+  'cobol',
+  'coffeescript',
+  'dart',
+  'erlang',
+  'go',
+  'haskell',
+  'html',
+  'java',
+  'javascript',
+  'lisp',
+  'lua',
+  'maple',
+  'matlab',
+  'mathematica',
+  'objective-c',
+  'perl',
+  'php',
+  'prolog',
+  'python',
+  'r',
+  'ruby',
+  'rust',
+  'scala',
+  'scheme',
+  'shell'
 ]
 
-words = languages
-
+search = languages
 posts = JSON.parse(IO.read(ARGV[0]))
+results = {}
 
 posts.each do |month, items|
+  results[month] = Hash[search.map {|key| [key, 0]}]
   items.each do |item, comments|
     comments.each do |comment|
-      puts comment
+      words = comment.gsub(/[.,0-9()\/]/i, ' ').split()
+      words.each do |word|
+        results[month][word.downcase] += 1 if languages.include?(word.downcase)
+      end
     end
   end
 end
+
+puts JSON.pretty_generate(results)
