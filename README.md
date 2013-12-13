@@ -14,7 +14,7 @@ structure that can be passed into the scraper. Example output can be found in
 
 The finder will output JSON. If you wish to save it then pipe it to a file.
 
-`./find.rb > posts.json`
+`./finder.rb > posts.json`
 
 ### Scraper
 
