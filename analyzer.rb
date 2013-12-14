@@ -3,7 +3,6 @@
 require 'json'
 
 languages = [
-  'assembly',
   'c',
   'css',
   'c++',
@@ -16,19 +15,13 @@ languages = [
   'html',
   'java',
   'javascript',
-  'lisp',
   'lua',
-  'maple',
-  'matlab',
   'objective-c',
   'perl',
   'php',
   'python',
-  'r',
   'ruby',
-  'scala',
-  'scheme',
-  'shell'
+  'scala'
 ]
 
 search = languages
